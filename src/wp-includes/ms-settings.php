@@ -54,15 +54,23 @@ ms_subdomain_constants();
 // have not been populated in the global scope through something like `sunrise.php`.
 if ( ! isset( $current_site ) || ! isset( $current_blog ) ) {
 
-	$domain = strtolower( stripslashes( $_SERVER['HTTP_HOST'] ) );
-	if ( ':80' === substr( $domain, -3 ) ) {
-		$domain               = substr( $domain, 0, -3 );
-		$_SERVER['HTTP_HOST'] = substr( $_SERVER['HTTP_HOST'], 0, -3 );
-	} elseif ( ':443' === substr( $domain, -4 ) ) {
-		$domain               = substr( $domain, 0, -4 );
-		$_SERVER['HTTP_HOST'] = substr( $_SERVER['HTTP_HOST'], 0, -4 );
-	}
+	/**
+	 * Filters allowed HTTP ports in Multisite.
+	 *
+	 * @param array $allowed_ports The allowed ports. Default is [ ':80', ':443' ].
+	 *
+	 * @since 5.3.0
+	 *
+	 */
+	$allowed_ports = apply_filters( 'allowed_multisite_ports', array( ':80', ':443' ) );
 
+	foreach ( $allowed_ports as $allowed_port ) {
+		$str_length = strlen( $allowed_port );
+		if ( substr( $domain, - $str_length ) == $allowed_port ) {
+			$domain               = substr( $domain, 0, - $str_length );
+			$_SERVER['HTTP_HOST'] = substr( $_SERVER['HTTP_HOST'], 0, - $str_length );
+		}
+	}
 	$path = stripslashes( $_SERVER['REQUEST_URI'] );
 	if ( is_admin() ) {
 		$path = preg_replace( '#(.*)/wp-admin/.*#', '$1/', $path );

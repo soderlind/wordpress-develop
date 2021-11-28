@@ -138,7 +138,10 @@ function network_step1( $errors = false ) {
 
 	$hostname  = get_clean_basedomain();
 	$has_ports = strstr( $hostname, ':' );
-	if ( ( false !== $has_ports && ! in_array( $has_ports, array( ':80', ':443' ), true ) ) ) {
+	/** This filter is documented in wp-includes/ms-settings.php */
+	$allowed_ports = apply_filters( 'allowed_multisite_ports', array( ':80', ':443' ) );
+
+	if ( ( false !== $has_ports && ! in_array( $has_ports, $allowed_ports ) ) ) {
 		echo '<div class="error"><p><strong>' . __( 'Error:' ) . '</strong> ' . __( 'You cannot install a network of sites with your server address.' ) . '</p></div>';
 		echo '<p>' . sprintf(
 			/* translators: %s: Port number. */
@@ -179,7 +182,7 @@ function network_step1( $errors = false ) {
 	}
 	?>
 	<p><?php _e( 'Welcome to the Network installation process!' ); ?></p>
-	<p><?php _e( 'Fill in the information below and you&#8217;ll be on your way to creating a network of WordPress sites. Configuration files will be created in the next step.' ); ?></p>
+	<p><?php _e( 'Fill in the information below and you&#8217;ll be on your way to creating a network of WordPress sites. We will create configuration files in the next step.' ); ?></p>
 	<?php
 
 	if ( isset( $_POST['subdomain_install'] ) ) {
@@ -271,7 +274,7 @@ function network_step1( $errors = false ) {
 		<?php
 		printf(
 			/* translators: 1: Site URL, 2: Host name, 3: www. */
-			__( 'You should consider changing your site domain to %1$s before enabling the network feature. It will still be possible to visit your site using the %3$s prefix with an address like %2$s but any links will not have the %3$s prefix.' ),
+			__( 'We recommend you change your site domain to %1$s before enabling the network feature. It will still be possible to visit your site using the %3$s prefix with an address like %2$s but any links will not have the %3$s prefix.' ),
 			'<code>' . substr( $hostname, 4 ) . '</code>',
 			'<code>' . $hostname . '</code>',
 			'<code>www</code>'
@@ -444,7 +447,7 @@ function network_step2( $errors = false ) {
 			echo '<strong>' . __( 'Caution:' ) . '</strong> ';
 			printf(
 				/* translators: 1: wp-config.php, 2: .htaccess */
-				__( 'You should back up your existing %1$s and %2$s files.' ),
+				__( 'We recommend you back up your existing %1$s and %2$s files.' ),
 				'<code>wp-config.php</code>',
 				'<code>.htaccess</code>'
 			);
@@ -452,7 +455,7 @@ function network_step2( $errors = false ) {
 			echo '<strong>' . __( 'Caution:' ) . '</strong> ';
 			printf(
 				/* translators: 1: wp-config.php, 2: web.config */
-				__( 'You should back up your existing %1$s and %2$s files.' ),
+				__( 'We recommend you back up your existing %1$s and %2$s files.' ),
 				'<code>wp-config.php</code>',
 				'<code>web.config</code>'
 			);
@@ -460,7 +463,7 @@ function network_step2( $errors = false ) {
 			echo '<strong>' . __( 'Caution:' ) . '</strong> ';
 			printf(
 				/* translators: %s: wp-config.php */
-				__( 'You should back up your existing %s file.' ),
+				__( 'We recommend you back up your existing %s file.' ),
 				'<code>wp-config.php</code>'
 			);
 		}
