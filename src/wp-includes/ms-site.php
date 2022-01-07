@@ -498,13 +498,14 @@ function wp_normalize_site_data( $data ) {
 	// Sanitize domain if passed.
 	if ( array_key_exists( 'domain', $data ) ) {
 		$data['domain'] = trim( $data['domain'] );
-		$has_ports = strstr( $data['domain'], ':' );
+		$has_ports      = strstr( $data['domain'], ':' );
 
-		$data['domain'] = preg_replace( '|:\d+$|', '', $data['domain'] ); // Remove ports.
+		// Remove ports.
+		$data['domain'] = preg_replace( '|:\d+$|', '', $data['domain'] );
 		$data['domain'] = preg_replace( '/\s+/', '', sanitize_user( $data['domain'], true ) );
 		/** This filter is documented in wp-includes/ms-settings.php */
 		$allowed_ports = apply_filters( 'allowed_multisite_ports', array( ':80', ':443' ) );
-		if ( ( false !== $has_ports && in_array( $has_ports, $allowed_ports ) ) ) {
+		if ( ( false !== $has_ports && is_array( $allowed_ports ) && in_array( $has_ports, $allowed_ports, true ) ) ) {
 			$data['domain'] .= $has_ports;
 		}
 
@@ -986,7 +987,7 @@ function clean_blog_cache( $blog ) {
 	 *
 	 * @since 4.6.0
 	 *
-	 * @param int     $id              Blog ID.
+	 * @param string  $id Site ID as a numeric string.
 	 * @param WP_Site $blog            Site object.
 	 * @param string  $domain_path_key md5 hash of domain and path.
 	 */
