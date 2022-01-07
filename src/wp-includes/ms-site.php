@@ -505,7 +505,7 @@ function wp_normalize_site_data( $data ) {
 		/** This filter is documented in wp-includes/ms-settings.php */
 		$allowed_ports = apply_filters( 'allowed_multisite_ports', array( ':80', ':443' ) );
 		if ( ( false !== $has_ports && in_array( $has_ports, $allowed_ports ) ) ) {
-			$data['domain'] = $data['domain'] . $has_ports;
+			$data['domain'] .= $has_ports;
 		}
 
 		if ( is_subdomain_install() ) {
