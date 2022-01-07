@@ -141,7 +141,7 @@ function network_step1( $errors = false ) {
 	/** This filter is documented in wp-includes/ms-settings.php */
 	$allowed_ports = apply_filters( 'allowed_multisite_ports', array( ':80', ':443' ) );
 
-	if ( ( false !== $has_ports && ! in_array( $has_ports, $allowed_ports ) ) ) {
+	if ( ( false !== $has_ports && is_array( $allowed_ports ) && ! in_array( $has_ports, $allowed_ports, true ) ) ) {
 		echo '<div class="error"><p><strong>' . __( 'Error:' ) . '</strong> ' . __( 'You cannot install a network of sites with your server address.' ) . '</p></div>';
 		echo '<p>' . sprintf(
 			/* translators: %s: Port number. */
