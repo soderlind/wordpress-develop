@@ -1357,6 +1357,85 @@ if ( is_multisite() ) :
 				),
 				array(
 					array(
+						'domain' => 'example.com:443',
+					),
+					array(
+						'domain' => 'example.com',
+						'path'   => '/',
+					),
+				),
+				array(
+					array(
+						'domain' => 'example.com:80',
+						'path'   => '/foo',
+					),
+					array(
+						'domain' => 'example.com',
+						'path'   => '/foo/',
+					),
+				),
+				array(
+					array(
+						'domain' => '[FEDC:BA98:7654:3210:FEDC:BA98:7654:3210]',
+						'path'   => '/',
+					),
+					array(
+						'domain' => '[FEDC:BA98:7654:3210:FEDC:BA98:7654:3210]',
+						'path'   => '/',
+					),
+				),
+				array(
+					array(
+						'domain' => '[3ffe:2a00:100:7031::1]:8080',
+						'path'   => '/',
+					),
+					array(
+						'domain' => '[3ffe:2a00:100:7031::1]:8080',
+						'path'   => '/',
+					),
+				),
+				array(
+					array(
+						'domain' => 'wordpress.org:8080',
+						'path'   => '/',
+					),
+					array(
+						'domain' => 'wordpress.org:8080',
+						'path'   => '/',
+					),
+				),
+				array(
+					array(
+						'domain' => '198.143.164.252',
+						'path'   => '/',
+					),
+					array(
+						'domain' => '198.143.164.252',
+						'path'   => '/',
+					),
+				),
+				array(
+					array(
+						'domain' => '198.143.164.252:8080',
+						'path'   => '/',
+					),
+					array(
+						'domain' => '198.143.164.252:8080',
+						'path'   => '/',
+					),
+				),
+				array(
+					array(
+						'domain' => '198.143.164.252:80',
+						'path'   => '/',
+					),
+					array(
+						'domain' => '198.143.164.252',
+						'path'   => '/',
+					),
+				),
+				array(
+					array(
 						'domain'     => 'example.com',
 						'path'       => '/foo',
 						'network_id' => 2,
