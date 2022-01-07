@@ -60,15 +60,16 @@ if ( ! isset( $current_site ) || ! isset( $current_blog ) ) {
 	 * @param array $allowed_ports The allowed ports. Default is [ ':80', ':443' ].
 	 *
 	 * @since 5.3.0
-	 *
 	 */
 	$allowed_ports = apply_filters( 'allowed_multisite_ports', array( ':80', ':443' ) );
 
-	foreach ( $allowed_ports as $allowed_port ) {
-		$str_length = strlen( $allowed_port );
-		if ( substr( $domain, - $str_length ) == $allowed_port ) {
-			$domain               = substr( $domain, 0, - $str_length );
-			$_SERVER['HTTP_HOST'] = substr( $_SERVER['HTTP_HOST'], 0, - $str_length );
+	if ( is_array( $allowed_ports ) ) {
+		foreach ( $allowed_ports as $allowed_port ) {
+			$str_length = strlen( $allowed_port );
+			if ( substr( $domain, - $str_length ) === $allowed_port ) {
+				$domain               = substr( $domain, 0, - $str_length );
+				$_SERVER['HTTP_HOST'] = substr( $_SERVER['HTTP_HOST'], 0, - $str_length );
+			}
 		}
 	}
 	$path = stripslashes( $_SERVER['REQUEST_URI'] );
