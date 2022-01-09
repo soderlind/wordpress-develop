@@ -1603,9 +1603,12 @@ if ( is_multisite() ) :
 		 * @dataProvider data_wp_normalize_site_data
 		 */
 		public function test_wp_normalize_site_data( $data, $expected ) {
-			add_filter( 'allowed_multisite_ports', function( $ports ) {
-				return array( ':80', ':443', ':8080' );
-			} );
+			add_filter(
+				'allowed_multisite_ports',
+				function( $ports ) {
+					return array( ':80', ':443', ':8080' );
+				}
+			);
 			$result = wp_normalize_site_data( $data );
 
 			$this->assertSameSetsWithIndex( $expected, $result );
@@ -1687,8 +1690,8 @@ if ( is_multisite() ) :
 						'domain' => 'domainwithport.com:443',
 						'domain' => 'anotherdomainwithport.com:80',
 						'domain' => 'anotherwithport.com:8080',
-					)
-				)
+					),
+				),
 			);
 		}
 
