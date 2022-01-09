@@ -1357,85 +1357,6 @@ if ( is_multisite() ) :
 				),
 				array(
 					array(
-						'domain' => 'example.com:443',
-					),
-					array(
-						'domain' => 'example.com',
-						'path'   => '/',
-					),
-				),
-				array(
-					array(
-						'domain' => 'example.com:80',
-						'path'   => '/foo',
-					),
-					array(
-						'domain' => 'example.com',
-						'path'   => '/foo/',
-					),
-				),
-				array(
-					array(
-						'domain' => '[FEDC:BA98:7654:3210:FEDC:BA98:7654:3210]',
-						'path'   => '/',
-					),
-					array(
-						'domain' => '[FEDC:BA98:7654:3210:FEDC:BA98:7654:3210]',
-						'path'   => '/',
-					),
-				),
-				array(
-					array(
-						'domain' => '[3ffe:2a00:100:7031::1]:8080',
-						'path'   => '/',
-					),
-					array(
-						'domain' => '[3ffe:2a00:100:7031::1]:8080',
-						'path'   => '/',
-					),
-				),
-				array(
-					array(
-						'domain' => 'wordpress.org:8080',
-						'path'   => '/',
-					),
-					array(
-						'domain' => 'wordpress.org:8080',
-						'path'   => '/',
-					),
-				),
-				array(
-					array(
-						'domain' => '198.143.164.252',
-						'path'   => '/',
-					),
-					array(
-						'domain' => '198.143.164.252',
-						'path'   => '/',
-					),
-				),
-				array(
-					array(
-						'domain' => '198.143.164.252:8080',
-						'path'   => '/',
-					),
-					array(
-						'domain' => '198.143.164.252:8080',
-						'path'   => '/',
-					),
-				),
-				array(
-					array(
-						'domain' => '198.143.164.252:80',
-						'path'   => '/',
-					),
-					array(
-						'domain' => '198.143.164.252',
-						'path'   => '/',
-					),
-				),
-				array(
-					array(
 						'domain'     => 'example.com',
 						'path'       => '/foo',
 						'network_id' => 2,
@@ -1682,6 +1603,9 @@ if ( is_multisite() ) :
 		 * @dataProvider data_wp_normalize_site_data
 		 */
 		public function test_wp_normalize_site_data( $data, $expected ) {
+			add_filter( 'allowed_multisite_ports', function( $ports ) {
+				return array( ':80', ':443', ':8080' );
+			} );
 			$result = wp_normalize_site_data( $data );
 
 			$this->assertSameSetsWithIndex( $expected, $result );
@@ -1753,6 +1677,18 @@ if ( is_multisite() ) :
 					),
 					array(),
 				),
+				array(
+					array(
+						'domain' => 'domainwithport.com:443',
+						'domain' => 'anotherdomainwithport.com:80',
+						'domain' => 'anotherwithport.com:8080',
+					),
+					array(
+						'domain' => 'domainwithport.com:443',
+						'domain' => 'anotherdomainwithport.com:80',
+						'domain' => 'anotherwithport.com:8080',
+					)
+				)
 			);
 		}
 
