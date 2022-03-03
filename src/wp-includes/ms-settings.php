@@ -57,9 +57,8 @@ if ( ! isset( $current_site ) || ! isset( $current_blog ) ) {
 	/**
 	 * Filters allowed HTTP ports in Multisite.
 	 *
+	 * @since 6.0.0
 	 * @param array $allowed_ports The allowed ports. Default is [ ':80', ':443' ].
-	 *
-	 * @since 5.3.0
 	 */
 	$allowed_ports = apply_filters( 'allowed_multisite_ports', array( ':80', ':443' ) );
 
