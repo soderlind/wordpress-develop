@@ -65,7 +65,7 @@ if ( ! isset( $current_site ) || ! isset( $current_blog ) ) {
 	if ( is_array( $allowed_ports ) ) {
 		foreach ( $allowed_ports as $allowed_port ) {
 			$str_length = strlen( $allowed_port );
-			if ( substr( $domain, - $str_length ) === $allowed_port ) {
+			if ( str_ends_with( $domain, $allowed_port ) ) {
 				$domain               = substr( $domain, 0, - $str_length );
 				$_SERVER['HTTP_HOST'] = substr( $_SERVER['HTTP_HOST'], 0, - $str_length );
 			}
