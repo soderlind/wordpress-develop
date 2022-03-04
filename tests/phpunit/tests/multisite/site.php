@@ -1683,12 +1683,24 @@ if ( is_multisite() ) :
 				array(
 					array(
 						'domain' => 'domainwithport.com:443',
-						'domain' => 'anotherdomainwithport.com:80',
-						'domain' => 'anotherwithport.com:8080',
 					),
 					array(
 						'domain' => 'domainwithport.com:443',
+					),
+				),						
+				array(
+					array(
 						'domain' => 'anotherdomainwithport.com:80',
+					),
+					array(
+						'domain' => 'anotherdomainwithport.com:80',
+					),
+				),	  
+				array(
+					array(
+						'domain' => 'anotherwithport.com:8080',
+					),
+					array(
 						'domain' => 'anotherwithport.com:8080',
 					),
 				),
