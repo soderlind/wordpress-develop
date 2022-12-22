@@ -78,7 +78,7 @@ jobs:
         run: echo "::set-output name=date::$(/bin/date -u --date='last Mon' "+%F")"
 
       - name: Cache PHP compatibility scan cache
-        uses: actions/cache@136d96b4aee02b1f0de3ba493b1d47135042d9c0 # v3.0.1
+        uses: actions/cache@c17f4bf4666a8001b1a45c09eb7a485c41aa64c3 # v3.2.0
         with:
           path: .cache/phpcompat.json
           key: ${{ runner.os }}-date-${{ steps.get-date.outputs.date }}-phpcompat-cache-${{ hashFiles('**/composer.json', 'phpcompat.xml.dist') }}
