@@ -66,7 +66,7 @@ jobs:
         uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2.4.0
 
       - name: Set up PHP
-        uses: shivammathur/setup-php@d37cc3048580de06099c81ded417530716a0d7ab # v2.18.0
+        uses: shivammathur/setup-php@7f5c8b51ba92b6dbcb4e6dd1f39030984f50cdca # v2.18.0
         with:
           php-version: '7.4'
           coverage: none
